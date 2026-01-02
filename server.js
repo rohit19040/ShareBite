@@ -42,7 +42,12 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // CORS configuration
-app.use(cors());
+
+app.use(cors({
+  origin: "https://musical-empanada-7e73ee.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 
 
 
