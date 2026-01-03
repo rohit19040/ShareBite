@@ -44,7 +44,7 @@ app.use('/api/', limiter);
 // CORS configuration
 
 app.use(cors({
-  origin: "https://musical-empanada-7e73ee.netlify.app",
+  origin: "process.env.FRONTEND_URL",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 }));
 
