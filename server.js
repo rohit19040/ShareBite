@@ -43,10 +43,26 @@ app.use('/api/', limiter);
 
 // CORS configuration
 
+app.set('trust proxy', 1); // REQUIRED for Render + rate-limit
+
+const allowedOrigins = [
+  'https://sharebitee.netlify.app',
+  'http://localhost:3000'
+];
+
 app.use(cors({
-  origin: "https://sharebitee.netlify.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow Postman / server-to-server
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH']
 }));
+
 
 
 
